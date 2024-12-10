@@ -1,0 +1,30 @@
+body{
+    background: #00314f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+h1,
+p{
+    color: #f2e8cf;
+    margin: 10px;
+}
+#item_container{
+    padding: 30px;
+    width: 100%;
+    margin: 30px;
+    max-width: 996px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: #a7c957;
+    border-radius: 10px;
+    border: 10px solid #bc4749;
+}
+#item_container canvas {
+    background-color: #f2e8cf;
+    border: 6px solid #386641;
+    border-radius: 10px;
+    flex: 1 1 0;
+    max-width: 180px;
+ }

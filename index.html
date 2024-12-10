@@ -2,17 +2,16 @@
 <html>
    <head>
       <title>Christmas calendar 2024</title>
-      <style>
-         canvas {
-            background-color: #BBB;
-            margin: 3px;
-            border-radius: 10px;
-         }
-      </style>
+      <link rel="stylesheet" href="style.css">
    </head>
    <body>
+      <h1>Christmas calendar</h1>
+      <p>Refresh me!</p>
+      <div id="item_container"></div>
+      <!-- Draw functions: -->
       <script src="draw.js"></script>
 
+      <!-- Items: -->
       <script src="items/star.js"></script>
       <script src="items/ball.js"></script>
       <script src="items/sock.js"></script>
@@ -20,6 +19,9 @@
       <script src="items/bow.js"></script>
       <script src="items/bell.js"></script>
       <script src="items/snowBall.js"></script>
+      <script src="items/candle.js"></script>
+      <script src="items/glove.js"></script>
+      <script src="items/candy.js"></script>
       <script>
          const cellSize = 200;
 
@@ -31,12 +33,17 @@
          drawItemFunctions[5] = drawBow;
          drawItemFunctions[6] = drawBell;
          drawItemFunctions[7] = drawSnowBall;
+         drawItemFunctions[8] = drawCandle;
+         drawItemFunctions[9] = drawGlove
+         drawItemFunctions[10] = drawCandy
 
+         // Draw items
          for (let day = 1; day <= 24; day++) {
+            const item_container = document.getElementById("item_container");
             const canvas = document.createElement("canvas");
             canvas.width = cellSize;
             canvas.height = cellSize;
-            document.body.appendChild(canvas);
+            item_container.appendChild(canvas);
 
             fillCell(day, canvas);
          }
@@ -60,8 +67,84 @@
             ctx.font = size + "px Consolas";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
+            ctx.fillStyle = "#bc4749";
             ctx.fillText(value, x, y);
          }
-      </script> 
+
+         // --------------------------------------------------------------
+         // Snow background
+         // Create canvas and set styles
+         const canvas = document.createElement("canvas");
+         canvas.style.position = 'fixed';
+         canvas.style.top = '0px';
+         canvas.style.left = '0px';
+         canvas.style.pointerEvents = 'none';
+         canvas.style.zIndex = '-1';
+         canvas.width = window.innerWidth;
+         canvas.height = window.innerHeight;
+         document.body.appendChild(canvas);
+
+         const ctx = canvas.getContext("2d");
+
+         const NUMBER_OF_SNOWFLAKES = 300;
+         const MAX_SNOWFLAKE_SIZE = 5;
+         const MAX_SNOWFLAKE_SPEED = 1;
+         const SNOWFLAKE_COLOR = "#87a5c1";
+         const snowflakes = [];
+
+         // Function to create a snowflake
+         const createSnowflake = () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.floor(Math.random() * MAX_SNOWFLAKE_SIZE) + 1,
+            color: SNOWFLAKE_COLOR,
+            speed: Math.random() * MAX_SNOWFLAKE_SPEED + 3,
+            sway: Math.random() - 0.5,
+
+         });
+
+         // Function to draw a snowflake
+         const drawSnowflake = snowflake => {
+            ctx.beginPath();
+            ctx.arc(snowflake.x, snowflake.y, snowflake.radius, 0, Math.PI * 2);
+            ctx.fillStyle = snowflake.color;
+            ctx.fill();
+            ctx.closePath();
+         };
+
+         // Function to update a snowflake's position
+         const updateSnowflake = snowflake => {
+            snowflake.y += snowflake.speed;
+            snowflake.x += snowflake.sway;
+            // If a snowflake goes outside of the canvas, create a new one
+            if (snowflake.y > canvas.height) {
+               Object.assign(snowflake, createSnowflake());
+            }
+         };
+
+         // Animation function
+         const animate = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            snowflakes.forEach(snowflake => {
+               updateSnowflake(snowflake);
+               drawSnowflake(snowflake);
+            });
+
+            requestAnimationFrame(animate);
+         };
+
+         // Create initial snowflakes
+         for (let i = 0; i < NUMBER_OF_SNOWFLAKES; i++) {
+            snowflakes.push(createSnowflake());
+         }
+
+         window.addEventListener('rezize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+         });
+
+         animate();
+      </script>
    </body>
 </html>

@@ -22,9 +22,19 @@ draw.line = (ctx, fromX, fromY, toX, toY, options) => {
    ctx.stroke();
 };
 
+draw.ellipse = (ctx, x, y, xRadius, yRadius, options) => {
+   ctx.beginPath();
+   ctx.ellipse(x, y, xRadius, yRadius, 0, 0, Math.PI * 2);
+   Object.assign(ctx, options);
+
+   options.fillStyle && ctx.fill();
+   options.strokeStyle && ctx.stroke();
+};
+
 const color = {};
 color.darkest = (hue) => `hsl(${hue}, 100%, 10%)`;
 color.dark = (hue) => `hsl(${hue}, 100%, 30%)`;
+color.lightdark = (hue) => `hsl(${hue}, 100%, 45%)`;
 color.normal = (hue) => `hsl(${hue}, 100%, 50%)`;
 color.light = (hue) => `hsl(${hue}, 100%, 70%)`;
 color.lightest = (hue) => `hsl(${hue}, 100%, 90%)`;
