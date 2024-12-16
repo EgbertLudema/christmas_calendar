@@ -38,3 +38,4 @@ color.lightdark = (hue) => `hsl(${hue}, 100%, 45%)`;
 color.normal = (hue) => `hsl(${hue}, 100%, 50%)`;
 color.light = (hue) => `hsl(${hue}, 100%, 70%)`;
 color.lightest = (hue) => `hsl(${hue}, 100%, 90%)`;
+color.reverse = (hue) => (hue + 180) % 360;
