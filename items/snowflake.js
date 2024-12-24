@@ -1,15 +1,15 @@
-function drawSnowFlake(ctx, x, y, size, hue) {
+function drawSnowFlake(ctx, x, y, size, hue, pattern = [1, 1, 1, 1, 1, 1]) {
     ctx.lineWidth = size * 0.05;
     ctx.strokeStyle = color.normal(hue);
     ctx.lineCap = "round";
 
     ctx.save();
     ctx.translate(x, y);
-    // Draws 6 branches
+    // Draws branches
     for (let i = 0; i < 6; i++) {
-        drawBranch(ctx, 0, 0, size);
+        pattern[i] == 1 && drawBranch(ctx, 0, 0, size);
         ctx.rotate(Math.PI / 3);
-    }
+     }
     ctx.restore();
 
     // Draw branch function
