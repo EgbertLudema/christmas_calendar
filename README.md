@@ -27,9 +27,12 @@ Link: [Youtube - Snow background](https://www.youtube.com/watch?v=JG7B4W9HeOw)
 I used a codepen example of a 3d box. I then customized it and applied a box to all items & numbers.
 
 codepen box:
+
 ![Codepen box example](screenshots/codepen-box.png)
+
 Link:[Box example](https://codepen.io/desandro/pen/MGpMOV)
 
 Customized result:
+
 ![Customized boxes](screenshots/customized_boxes.png)
 
