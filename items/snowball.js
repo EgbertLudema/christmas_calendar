@@ -23,4 +23,4 @@ function drawSnowBall(ctx, x, y, size, hue) {
       ctx.fillStyle = color;
       ctx.fill();
    }
-}
+} 
