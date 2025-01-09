@@ -10,6 +10,10 @@
       <div id="item_container">
          <!-- All items are drawn here -->
       </div>
+      <h2>Some extra custom created items, so I know how to draw items myself! Including a closed box, showing all coming days would look like before opened!</h2>
+      <div id="custom_item_container">
+         <!-- All custom items are drawn here -->
+      </div>
       <!-- Draw functions: -->
       <script src="draw.js"></script>
 
@@ -38,6 +42,13 @@
       <script src="items/skate.js"></script>
       <script src="items/reindeer.js"></script>
       <script src="items/christmasTree.js"></script>
+
+      <!-- Custom items: -->
+      <script src="customItems/santaHead.js"></script>
+      <script src="customItems/santaBody.js"></script>
+      <script src="customItems/santaLeg.js"></script>
+      <script src="customItems/santaArm.js"></script>
+      <script src="customItems/santa.js"></script>
 
       <script>
          const cellSize = 200;
@@ -68,8 +79,15 @@
          drawItemFunctions[23] = drawReindeer;
          drawItemFunctions[24] = drawChristmasTree;
 
+         drawCustomItemFunctions = [];
+         drawCustomItemFunctions[1] = drawSantaHead;
+         drawCustomItemFunctions[2] = drawSantaBody;
+         drawCustomItemFunctions[3] = drawSantaLeg;
+         drawCustomItemFunctions[4] = drawSantaArm;
+         drawCustomItemFunctions[5] = drawSanta;
+         // [6: Example of a closed box
 
-         // Custom draw items
+         // Draw items
          for (let day = 1; day <= 24; day++) {
             const item_container = document.getElementById("item_container");
 
@@ -105,11 +123,51 @@
             fillCell(day, canvas, box);
          }
 
-         function fillCell(index, canvas, box) {
+         // Draw custom items
+         for (let item = 1; item <= 6; item++) {
+            const custom_item_container = document.getElementById("custom_item_container");
+
+            // Create the scene container
+            const scene = document.createElement("div");
+            scene.className = "scene";
+
+            // Create the box
+            const box = document.createElement("div");
+            box.className = "box";
+
+            // Add faces to the box
+            const faces = ["front", "back", "right", "left", "top", "bottom"];
+            faces.forEach(face => {
+               const faceDiv = document.createElement("div");
+               faceDiv.className = `box__face box__face--${face}`;
+               box.appendChild(faceDiv);
+            });
+
+            // Create the canvas
+            const canvas = document.createElement("canvas");
+            canvas.width = cellSize;
+            canvas.height = cellSize;
+
+            // Append the box and canvas to the scene
+            scene.appendChild(box);
+            scene.appendChild(canvas);
+
+            // Append the scene to the item container
+            custom_item_container.appendChild(scene);
+
+            // Draw the item on the canvas
+            fillCell(item, canvas, box, true);
+         }
+
+         function fillCell(index, canvas, box, isCustom = false) {
             const ctx = canvas.getContext("2d");
             const x = canvas.width / 2;
             const y = canvas.height / 2;
             const itemSize = canvas.width * 0.6;
+
+            // Draws the item on the canvas for both custom and non-custom items
+            const drawFunctions = isCustom ? drawCustomItemFunctions : drawItemFunctions;
+            const drawItem = drawFunctions[index];
 
             // Create an off-screen canvas
             const offScreenCanvas = document.createElement("canvas");
@@ -118,13 +176,12 @@
             const offScreenCtx = offScreenCanvas.getContext("2d");
 
             // Draw the item on the off-screen canvas
-            const drawItem = drawItemFunctions[index];
             const hue = Math.random() * 360;
             if (drawItem) {
                drawItem(offScreenCtx, x, y, itemSize, hue);
             } else {
                drawNumber(offScreenCtx, index, x, y, itemSize);
-               // Adds class number for styling(closed box)
+               // Adds class number for styling (closed box)
                box.classList.add("number");
             }
 

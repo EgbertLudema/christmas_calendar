@@ -5,11 +5,15 @@ body{
     align-items: center;
 }
 h1,
+h2,
 p{
     color: #f2e8cf;
     margin: 10px;
+    max-width: 1000px;
+    text-align: center;
 }
-#item_container{
+#item_container, 
+#custom_item_container{
     padding: 30px;
     width: 100%;
     margin: 30px;
@@ -22,7 +26,8 @@ p{
     border-radius: 10px;
     border: 10px solid #bc4749;
 }
-#item_container canvas {
+#item_container canvas,
+#custom_item_container canvas{
     position: absolute;
     top: 0px;
     left: 0px;
