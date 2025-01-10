@@ -38,7 +38,9 @@ Customized result:
 Course links:
 - [Youtube - Calendar](https://www.youtube.com/playlist?list=PLB0Tybl0UNfalh9Ll82j6OKdx1QINOZom)
 - [Github - Calendar](https://github.com/gniziemazity/christmas_calendar)
+
 Snow tutorial:
 - [Youtube - Snow background](https://www.youtube.com/watch?v=JG7B4W9HeOw)
+
 3D box:
 - [Box example](https://codepen.io/desandro/pen/MGpMOV)
